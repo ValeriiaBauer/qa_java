@@ -1,0 +1,51 @@
+package ru.praktikum;
+
+import org.junit.jupiter.api.Test;
+import java.util.List;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+class FelineTest {
+
+    @Test
+    void testEatMeat() throws Exception {
+        Feline feline = new Feline();
+        assertEquals(List.of("Животные", "Птицы", "Рыба"), feline.eatMeat());
+    }
+
+    @Test
+    void testGetFamily() {
+        Feline feline = new Feline();
+        assertEquals("Кошачьи", feline.getFamily());
+    }
+
+    @Test
+    void testGetKittens() {
+        Feline feline = new Feline();
+        assertEquals(1, feline.getKittens());
+    }
+
+    @Test
+    void testGetKittensWithCount() {
+        Feline feline = new Feline();
+        assertEquals(3, feline.getKittens(3));
+    }
+
+    @Test
+    void testGetFoodForPredator() throws Exception {
+        Feline feline = new Feline();
+        assertEquals(List.of("Животные", "Птицы", "Рыба"), feline.getFood("Хищник"));
+    }
+
+    @Test
+    void testGetFoodForHerbivore() throws Exception {
+        Feline feline = new Feline();
+        assertEquals(List.of("Трава", "Различные растения"), feline.getFood("Травоядное"));
+    }
+
+    @Test
+    void testGetFoodForUnknownType() {
+        Feline feline = new Feline();
+        assertThrows(Exception.class, () -> feline.getFood("Неизвестный тип"));
+    }
+}
