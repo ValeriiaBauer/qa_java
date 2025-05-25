@@ -6,7 +6,6 @@ import static org.junit.Assert.*;
 
 public class FelineTest {
 
-    // Тест для метода eatMeat()
     @Test
     public void testEatMeatReturnsCorrectFoodList() throws Exception {
         Feline feline = new Feline();
@@ -16,7 +15,6 @@ public class FelineTest {
                 expectedFood, actualFood);
     }
 
-    // Тест для метода getFamily()
     @Test
     public void testGetFamilyReturnsCorrectValue() {
         Feline feline = new Feline();
@@ -26,7 +24,6 @@ public class FelineTest {
                 expectedFamily, actualFamily);
     }
 
-    // Тест для метода getKittens() без параметров
     @Test
     public void testGetKittensWithoutParametersReturnsOne() {
         Feline feline = new Feline();
@@ -36,7 +33,6 @@ public class FelineTest {
                 expectedKittens, actualKittens);
     }
 
-    // Тест для метода getKittens() с параметром
     @Test
     public void testGetKittensWithParameterReturnsSameValue() {
         Feline feline = new Feline();
@@ -46,7 +42,6 @@ public class FelineTest {
                 testCount, actualKittens);
     }
 
-    // Тест для проверки, что getKittens() вызывает getKittens(1)
     @Test
     public void testGetKittensCallsOverloadedMethod() {
         Feline feline = new Feline() {

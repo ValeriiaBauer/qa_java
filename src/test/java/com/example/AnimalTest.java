@@ -4,6 +4,7 @@ import org.junit.Test;
 import java.util.List;
 import static org.junit.Assert.*;
 
+
 public class AnimalTest {
 
     private final Animal animal = new Animal();

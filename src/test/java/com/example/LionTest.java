@@ -1,48 +1,56 @@
 package com.example;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.mockito.Mockito;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+import java.util.List;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
-@RunWith(Parameterized.class)
 
+@RunWith(MockitoJUnitRunner.class)
 public class LionTest {
 
-    private final String sex;
-    private final boolean expectedHasMane;
+    @Mock
+    private Feline feline;
 
-    public LionTest(String sex, boolean expectedHasMane) {
-        this.sex = sex;
-        this.expectedHasMane = expectedHasMane;
-    }
-
-    @Parameterized.Parameters
-    public static Object[][] getSexData() {
-        return new Object[][] {
-                {"Самец", true},
-                {"Самка", false}
-        };
+    @Test
+    public void maleLionShouldHaveMane() throws Exception {
+        Lion lion = new Lion("Самец", feline);
+        assertTrue(lion.doesHaveMane());
     }
 
     @Test
-    public void testDoesHaveManeReturnsCorrectValue() throws Exception {
-        Predator predator = Mockito.mock(Predator.class);
-        Lion lion = new Lion(sex, predator);
-        assertEquals(expectedHasMane, lion.doesHaveMane());
+    public void femaleLionShouldNotHaveMane() throws Exception {
+        Lion lion = new Lion("Самка", feline);
+        assertFalse(lion.doesHaveMane());
     }
 
     @Test(expected = Exception.class)
-    public void testInvalidSexThrowsException() throws Exception {
-        Predator predator = Mockito.mock(Predator.class);
-        new Lion("Неизвестно", predator);
+    public void invalidSexShouldThrowException() throws Exception {
+        new Lion("Неизвестный", feline);
     }
 
     @Test
-    public void testGetFoodCallsPredatorMethod() throws Exception {
-        Predator predator = Mockito.mock(Predator.class);
-        Lion lion = new Lion(sex, predator);
-        lion.getFood();
-        Mockito.verify(predator).eatMeat();
+    public void getKittensShouldCallFelineMethod() throws Exception {
+        when(feline.getKittens()).thenReturn(1);
+        Lion lion = new Lion("Самец", feline);
+
+        int kittens = lion.getKittens();
+
+        assertEquals(1, kittens);
+        verify(feline).getKittens();
+    }
+
+    @Test
+    public void getFoodShouldReturnMeatList() throws Exception {
+        List<String> expectedFood = List.of("Животные", "Птицы", "Рыба");
+        when(feline.eatMeat()).thenReturn(expectedFood);
+        Lion lion = new Lion("Самка", feline);
+
+        List<String> actualFood = lion.getFood();
+
+        assertEquals(expectedFood, actualFood);
     }
 }
